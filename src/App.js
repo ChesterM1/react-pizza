@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+import { store } from './redux/store/store';
+import { Provider } from 'react-redux';
+
+import Header from "./Components/Header/Header";
+import CardsPage from "./pages/CardsPage";
+import Home from './pages/Home';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    return (
+        <>
+          <Provider store={store}>
+          <div className="container">
+              {/* HEADER */}
+              <Header/>
+                {/* <!-- PIZZA-BLOCK --> */}
+                <section className="pizza">
+                      <Routes>
+                        <Route path="/" element={<Home/>} />
+                        <Route path="/cards" element={<CardsPage />} />
+                        <Route path="*" element={<NotFoundPage/>}/>
+                      </Routes>
+                      
+                    
+                </section>
+            </div>
+          </Provider>
+
+        </> 
+    );
 }
 
 export default App;

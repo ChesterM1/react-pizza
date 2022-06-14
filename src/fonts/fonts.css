@@ -1,0 +1,16 @@
+@font-face {
+    font-family: "Proxima";
+    src: url('ProximaNovaCond-ExtrabldIt.woff');
+    font-weight: 800;
+
+   }
+   @font-face {
+    font-family: "Proxima";
+    src:  url("ProximaNova-Bold.woff");
+    font-weight: 700;
+   }
+   @font-face {
+    font-family: "Proxima";
+    src:  url("ProximaNovaCond-Regular.woff");
+    font-weight: 400;
+   }

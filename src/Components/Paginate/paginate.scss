@@ -1,0 +1,35 @@
+.paginate{
+    padding-top: 40px;
+    &-block{
+        display: flex;
+        justify-content: space-between;
+        max-width: 300px;
+        margin: 0;
+        &>li{
+            list-style-type: none;
+            border-radius: 100%;
+            border: 2px solid var(--orange-color);
+            cursor: pointer;
+            transition: 0.5s all;
+            &>a{
+                display: block;
+                padding: 13px 19px;
+                font-size: 20px;
+                font-weight: 700;
+                color: var(--orange-color);
+            }
+            &:hover{
+                background-color: var(--orange-color);
+                &>a{
+                   color: #fff; 
+                }
+            }
+        }
+    }
+    .selected{
+        background-color: var(--orange-color);
+            &>a{
+                color: #fff;
+            }
+    }
+}
