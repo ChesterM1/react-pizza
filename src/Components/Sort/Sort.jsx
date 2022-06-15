@@ -1,25 +1,23 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import "./sort.scss";
 import arrow from "../../img/arrow.svg";
 import {setCategory, setSortValue} from '../../redux/slice/sortSlice';
 
+
+export const sortList =  [
+    {sortName: 'rating', name: 'популярности'},
+    {sortName: 'price', name: 'цене'},
+    {sortName: 'title', name: 'по алфавиту'}
+];
+
 const Sort = () => {
     const {categoryId, categoryItem, sortValue} = useSelector(state => state.filters);
-
     const dispatch = useDispatch();
     const [openSort, setOpenSort] = useState(false);
-
-
-    const sortList =  [
-        {sortName: 'rating', name: 'популярности'},
-        {sortName: 'price', name: 'цене'},
-        {sortName: 'title', name: 'по алфавиту'}
-    ];
-    
-
-    
+    const sortRef = useRef();
+ 
     const viewSort = ()=>{
         setOpenSort(!openSort);
     };
@@ -30,9 +28,23 @@ const Sort = () => {
     };
 
     const chooseCategories = (i) => {
-        // onClickCatygory(i);
         dispatch(setCategory(i))
     };
+
+    
+
+    useEffect(()=>{
+        const closeSort = (e)=>{
+            if(!e.path.includes(sortRef.current)){
+                setOpenSort(false);
+            }
+        }
+
+        document.body.addEventListener('click',closeSort);
+
+        return()=> document.body.removeEventListener('click', closeSort);
+    },[])
+
 
     return (
         <section className="sort">
@@ -54,7 +66,9 @@ const Sort = () => {
                     <div className="sort-pizza__blur"></div>
                 </div>
 
-                <div className="sort-price">
+                <div 
+                    ref={sortRef}
+                    className="sort-price">
                     <div className="sort-price__block">
                         <img
                             src={arrow}

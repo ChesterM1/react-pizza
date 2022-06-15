@@ -1,8 +1,14 @@
 
 import ReactPaginate from 'react-paginate';
+import {  useDispatch } from 'react-redux';
 import './paginate.scss';
 
-const Paginate = ({setPages})=>{
+import { chengePages } from '../../redux/slice/sortSlice';
+
+const Paginate = ({pizzasLength})=>{
+
+
+    const dispatch = useDispatch();
 
     return(
         <div className='paginate'>
@@ -10,9 +16,9 @@ const Paginate = ({setPages})=>{
             className='paginate-block'
         breakLabel="..."
         nextLabel=">"
-        onPageChange={(e)=>setPages(e.selected+1)}
+        onPageChange={(e)=>dispatch(chengePages(e.selected+1))}
         pageRangeDisplayed={8}
-        pageCount={3}
+        pageCount={pizzasLength < 4 ? 1 : 3}
         previousLabel="<"
         renderOnZeroPageCount={null}
         />
