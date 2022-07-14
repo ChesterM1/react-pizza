@@ -2,7 +2,7 @@
     padding: 35px 42px 50px;
     &__wrapper{
         display: grid;
-        grid-template: auto / repeat(auto-fit, 280px);
+        grid-template: auto / repeat(4, 280px);
         justify-content: space-around;
         gap: 65px 35px;
     }
@@ -133,10 +133,28 @@
     }
 }
 
+@media(max-width: 1350px) {
+    .pizza{
+        &__wrapper{
+            grid-template: auto / repeat(3, 280px);
+        }
+    }
+    
+}
+
 @media(max-width: 1200px){
     .pizza{
         &__wrapper{
             justify-content: center;
+
+        }
+    }
+}
+
+@media(max-width: 1180px){
+    .pizza{
+        &__wrapper{
+            grid-template: auto / repeat(2, 280px);
 
         }
     }
@@ -147,6 +165,15 @@
         padding: 30px 10px 50px;
         &__wrapper{
             gap: 40px 20px;
+
+        }
+    }
+}
+
+@media(max-width: 630px){
+    .pizza{
+        &__wrapper{
+            grid-template: auto / repeat(1, 280px);
 
         }
     }

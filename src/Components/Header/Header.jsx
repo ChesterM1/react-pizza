@@ -4,8 +4,11 @@ import './header.scss';
 import logo from '../../img/pizza_logo.png'
 import basketSvg from '../../img/basket_icon.svg';
 import Search from '../Search/Search';
+import { useSelector } from 'react-redux';
 
 const Header = ({searchValue, setSearchValue}) =>{
+
+    const {totalPizzaCount, totalPrice} = useSelector(state=> state.cardPizza);
 
      return(
         <header className="header">
@@ -22,11 +25,11 @@ const Header = ({searchValue, setSearchValue}) =>{
 
                 <Link to={'cards'} className="basket">
                     <div className="header-basket">
-                        <span className="header-basket__price">520 ₴</span>
+                        <span className="header-basket__price">{totalPrice} ₴</span>
                         <span className="header-basket__vertical">|</span>
                         <div>
                             <img src={basketSvg} alt="basket" className="header-basket__icon"/>
-                            <span className="header-basket__total">3</span>
+                            <span className="header-basket__total">{totalPizzaCount}</span>
                         </div>
                     </div>
                 </Link>

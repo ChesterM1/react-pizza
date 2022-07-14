@@ -30,7 +30,7 @@ export const filters = createSlice({
         state.sortValue = action.payload;
     },
     chengePages(state, action){
-      state.pages = action.payload;
+      state.pages = (action.payload) +1;
     },
     setFilter(state, action){
       state.categoryId = Number(action.payload.categoryId);

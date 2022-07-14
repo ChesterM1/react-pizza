@@ -20,92 +20,16 @@
         }
         &__img{
             margin-right: 15px;
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
         }
         &__name{
             font-weight: 700;
             font-size: 22px;
             line-height: 27px;
             margin-bottom: 3px;
-        }
-        &__options{
-            font-weight: 400;
-            font-size: 18px;
-            line-height: 22px;
-            color: #8D8D8D;
-        }
-        &__amount{
-            grid-row: 2 / 3;
-            grid-column: 2 / 3;
-            &-btn{
-                width: 32px;
-                height: 32px;
-                background-color: #fff;
-                border-radius: 100%;
-                border: 2px solid var(--orange-color);
-                color: var(--orange-color);
-                cursor: pointer;
-                font-size: 25px;
-                line-height: 1px;
-                &>.minus{
-                    transform: translateY(-1px);
-                }
-                &>.plus{
-                    transform: translateY(1px);
-                }
-            }
-            &-num{
-                font-weight: 700;
-                font-size: 22px;
-                line-height: 27px;
-                padding: 0 12px;
-            }
-        }
-        &__price{
-            grid-row: 2 / 3;
-            grid-column: 3 / 4;
-            font-weight: 700;
-            font-size: 22px;
-            line-height: 27px;
-        }
-        &__dlt{
-            grid-row: 2 / 3;
-            grid-column: 4 / 5;
-            &-btn{
-                width: 32px;
-                height: 32px;
-                background-color: #fff;
-                border-radius: 100%;
-                border: 2px solid #D7D7D7;
-                cursor: pointer;
-            }
-        }
-    }    &-pizza{
-        margin-top: 30px;
-        margin-bottom: 10px;
-        padding-top: 30px;
-        border-top: 1px solid #F4F4F4;
-        
-        &__block{
-            display: grid;
-            grid-template: repeat(3, 26px) / repeat(4, auto);
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-        &__item{
-            grid-row: 1 / 4;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end; 
-        }
-        &__img{
-            margin-right: 15px;
-        }
-        &__name{
-            font-weight: 700;
-            font-size: 22px;
-            line-height: 27px;
-            margin-bottom: 3px;
+            width: 285px;
         }
         &__options{
             font-weight: 400;
@@ -136,7 +60,6 @@
                         }
                     }
                 }
-                
                 &>.minus{
                     transform: translateY(-1px);
                 }
@@ -178,6 +101,17 @@
                 }
             }
         }
+    }    
+}
+
+@media(max-width: 640px){
+    .cards{
+        &-pizza{
+            &__name{
+                font-size: 18px;
+                width: 234px;
+            }
+        }
     }
 }
 
@@ -201,6 +135,9 @@
                 grid-row: 2 / 3;
                 grid-column: 3 / 4;
                 justify-self: center;
+            }
+            &__name{
+                width: auto;
             }
         }
     }

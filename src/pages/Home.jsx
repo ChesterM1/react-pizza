@@ -10,6 +10,7 @@ import PizzaTitle from "../Components/PizzaTitle/PizzaTitle";
 import Paginate from '../Components/Paginate/Paginate';
 import {setFilter} from '../redux/slice/sortSlice';
 import {sortList} from '../Components/Sort/Sort';
+import {chengePages} from '../redux/slice/sortSlice';
 
 const Home = ()=>{
 
@@ -23,8 +24,13 @@ const Home = ()=>{
 
     const getResourse = () => {
         const category = categoryId > 0 ? `category=${categoryId}` : '';
+
+        if(categoryId > 0){
+            dispatch(chengePages(0));
+        }
+        
         axios
-        .get(`https://629fe7af461f8173e4f2841b.mockapi.io/pizzas/items?page=${pages}&limit=4&${category}&search=${searchValue}&sortby=${sortValue.sortName}`)
+        .get(`https://629fe7af461f8173e4f2841b.mockapi.io/pizzas/items?${category}&page=${pages}&limit=4&search=${searchValue}&sortby=${sortValue.sortName}`)
             .then(res=>{
                 setPizzas(res.data);
                 setLoaded(true);
@@ -40,7 +46,7 @@ const Home = ()=>{
             dispatch(setFilter({
                 ...params,
                 sortValue
-            }))
+            }));
 
             firstLoad.current = true;
         }
