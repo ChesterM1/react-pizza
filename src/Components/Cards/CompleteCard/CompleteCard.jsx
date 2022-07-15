@@ -1,3 +1,4 @@
+import './compliteCards.scss';
 import card_black from '../../../img/card_black.svg';
 import trash_icon from '../../../img/trash_icon.svg';
 import PizzaCardsMini from '../PizzaCardsMini/PIzzaCardsMini';

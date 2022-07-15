@@ -6,6 +6,8 @@ const initialState = {
     totalPizzaCount: 0,
 };
 
+
+
 export const cardPizza = createSlice({
     name: "cardPizza",
     initialState,
@@ -35,8 +37,9 @@ export const cardPizza = createSlice({
         },
         dltPizzasItem(state, action) {
             state.pizzaMini = state.pizzaMini.filter(
-                (item) => item.param !== action.payload.param
+                (item) => (item.param !== action.payload.param)
             );
+            
             state.totalPrice =
                 state.totalPrice - action.payload.price * action.payload.count;
             state.totalPizzaCount =

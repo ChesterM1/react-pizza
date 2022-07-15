@@ -2,7 +2,9 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPizzaMini } from "../../redux/slice/cardPizza";
 
+
 import "./pizza.scss";
+
 
 const doughType = ["тонкое", "традиционное"];
 
@@ -15,7 +17,7 @@ const Pizza = ({ title, price, imageUrl, types, sizes, id }) => {
     const pizzaCount =
         useSelector((state) => state.cardPizza.pizzaMini.filter(elem => elem.id === id))
         .reduce((acum, elem)=> acum + elem.count, 0) || null;
-        console.log(pizzaCount);
+   
         
     const cardPizza = {
         title,
@@ -24,7 +26,7 @@ const Pizza = ({ title, price, imageUrl, types, sizes, id }) => {
         sizes: sizes[sizesNum],
         types: types[0] === activeDough ? doughType[0] : doughType[1],
         id ,
-        param: activeDough ? 1+(sizesNum): 4+sizesNum,
+        param: activeDough ? (id+doughType[0]+sizesNum) : (id+doughType[1]+sizesNum),
         count: 1,
     };
     

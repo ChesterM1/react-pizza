@@ -5,7 +5,7 @@ import './paginate.scss';
 
 import { chengePages } from '../../redux/slice/sortSlice';
 
-const Paginate = ({pizzasLength})=>{
+const Paginate = ()=>{
 
 
     const dispatch = useDispatch();

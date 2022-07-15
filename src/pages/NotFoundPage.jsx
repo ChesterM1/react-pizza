@@ -1,4 +1,4 @@
-import NotFound from "../Components/NotFound.jsx/NotFound";
+import NotFound from "../Components/NotFound/NotFound";
 
 const NotFoundPage = ()=>{
 
