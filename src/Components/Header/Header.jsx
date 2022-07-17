@@ -1,14 +1,18 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import './header.scss';
 import logo from '../../img/pizza_logo.png'
 import basketSvg from '../../img/basket_icon.svg';
 import Search from '../Search/Search';
 import { useSelector } from 'react-redux';
+import {selectCardInfo} from '../../redux/slice/cardPizza';
 
 const Header = ({searchValue, setSearchValue}) =>{
 
-    const {totalPizzaCount, totalPrice} = useSelector(state=> state.cardPizza);
+    const {totalPizzaCount, totalPrice} = useSelector(selectCardInfo);
+    const {pathname} = useLocation();
+    console.log(pathname);
+
 
      return(
         <header className="header">
@@ -21,18 +25,22 @@ const Header = ({searchValue, setSearchValue}) =>{
                     </div>
                 </Link>
                 
+               {pathname !== '/cards' && 
+               <>
                 <Search setSearchValue={setSearchValue} searchValue={searchValue}/>
 
-                <Link to={'cards'} className="basket">
-                    <div className="header-basket">
-                        <span className="header-basket__price">{totalPrice} ₴</span>
-                        <span className="header-basket__vertical">|</span>
-                        <div>
-                            <img src={basketSvg} alt="basket" className="header-basket__icon"/>
-                            <span className="header-basket__total">{totalPizzaCount}</span>
+                    <Link to={'cards'} className="basket">
+                        <div className="header-basket">
+                            <span className="header-basket__price">{totalPrice} ₴</span>
+                            <span className="header-basket__vertical">|</span>
+                            <div>
+                                <img src={basketSvg} alt="basket" className="header-basket__icon"/>
+                                <span className="header-basket__total">{totalPizzaCount}</span>
+                            </div>
                         </div>
-                    </div>
-                </Link>
+                    </Link>
+                </>
+                }
             </div>
         </header>
      );

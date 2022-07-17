@@ -68,6 +68,8 @@ export const cardPizza = createSlice({
     },
 });
 
+export const selectCardInfo = state => state.cardPizza;
+
 export const {
     setPizzaMini,
     dltAllPizzas,

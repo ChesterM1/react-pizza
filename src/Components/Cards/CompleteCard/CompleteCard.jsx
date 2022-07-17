@@ -2,15 +2,15 @@ import './compliteCards.scss';
 import card_black from '../../../img/card_black.svg';
 import trash_icon from '../../../img/trash_icon.svg';
 import PizzaCardsMini from '../PizzaCardsMini/PIzzaCardsMini';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {Link} from 'react-router-dom';
-import {dltAllPizzas} from '../../../redux/slice/cardPizza';
+import {dltAllPizzas, selectCardInfo} from '../../../redux/slice/cardPizza';
 
 
 const CompleteCard = ()=>{
 
     const dispatch = useDispatch();
-    const {pizzaMini, totalPizzaCount, totalPrice} = useSelector(state => state.cardPizza);
+    const {pizzaMini, totalPizzaCount, totalPrice} = useSelector(selectCardInfo);
     
     const resetPizzas = ()=>{
         if (window.confirm('Очистить корзину ?')) {
@@ -34,16 +34,12 @@ const CompleteCard = ()=>{
                         <img src={trash_icon} alt="trash icon" className="cards-header__icon" />
                         <span className="cards-header__clean">Очистить корзину</span>
                     </div>
-                
+                    
             </div>
 
                 {/* PIZZA CARD MINI */}
                 {pizzaMini.map((item, i)=> <PizzaCardsMini {...item} key={i}/>)}
                 
-
-
-
-
                 <div className="cards-total">
                     <div className="cards-total__pizza">Всего пицц: <span>{totalPizzaCount} шт.</span></div>
                     <div className="cards-total__price">Сумма заказа: <span>{totalPrice} ₴</span></div>
