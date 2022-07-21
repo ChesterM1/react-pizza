@@ -3,7 +3,7 @@ import emptyImg from '../../../img/empty_basket.png';
 import {Link} from 'react-router-dom';
 
 
-const EmptyCard = ()=>{
+const EmptyCard: React.FC = ()=>{
 
     return(
         <section className='empty'>

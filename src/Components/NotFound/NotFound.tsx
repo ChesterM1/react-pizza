@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import './notFound.scss';
 
-const NotFound = ()=>{
+const NotFound: React.FC = ()=>{
 
     return(
         <div className='notFound'>

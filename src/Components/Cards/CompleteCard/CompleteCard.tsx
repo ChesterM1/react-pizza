@@ -4,13 +4,13 @@ import trash_icon from '../../../img/trash_icon.svg';
 import PizzaCardsMini from '../PizzaCardsMini/PIzzaCardsMini';
 import { useSelector, useDispatch } from 'react-redux';
 import {Link} from 'react-router-dom';
-import {dltAllPizzas, selectCardInfo} from '../../../redux/slice/cardPizza';
-
+import {dltAllPizzas, selectCardPizza} from '../../../redux/slice/cardPizza';
+import {PizzaMiniProp} from '../PizzaCardsMini/PIzzaCardsMini';
 
 const CompleteCard = ()=>{
 
     const dispatch = useDispatch();
-    const {pizzaMini, totalPizzaCount, totalPrice} = useSelector(selectCardInfo);
+    const {pizzaMini, totalPizzaCount, totalPrice} = useSelector(selectCardPizza);
     
     const resetPizzas = ()=>{
         if (window.confirm('Очистить корзину ?')) {
@@ -38,7 +38,7 @@ const CompleteCard = ()=>{
             </div>
 
                 {/* PIZZA CARD MINI */}
-                {pizzaMini.map((item, i)=> <PizzaCardsMini {...item} key={i}/>)}
+                {pizzaMini.map((item: PizzaMiniProp, i: number)=> <PizzaCardsMini {...item} key={i}/>)}
                 
                 <div className="cards-total">
                     <div className="cards-total__pizza">Всего пицц: <span>{totalPizzaCount} шт.</span></div>

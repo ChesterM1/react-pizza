@@ -1,17 +1,18 @@
 import { Link, useLocation } from 'react-router-dom';
-
+import React from 'react';
 import './header.scss';
 import logo from '../../img/pizza_logo.png'
 import basketSvg from '../../img/basket_icon.svg';
 import Search from '../Search/Search';
 import { useSelector } from 'react-redux';
-import {selectCardInfo} from '../../redux/slice/cardPizza';
+import {selectCardPizza} from '../../redux/slice/cardPizza';
 
-const Header = ({searchValue, setSearchValue}) =>{
 
-    const {totalPizzaCount, totalPrice} = useSelector(selectCardInfo);
+
+const Header: React.FC = () =>{
+
+    const {totalPizzaCount, totalPrice} = useSelector(selectCardPizza);
     const {pathname} = useLocation();
-    console.log(pathname);
 
 
      return(
@@ -27,7 +28,7 @@ const Header = ({searchValue, setSearchValue}) =>{
                 
                {pathname !== '/cards' && 
                <>
-                <Search setSearchValue={setSearchValue} searchValue={searchValue}/>
+                <Search/>
 
                     <Link to={'cards'} className="basket">
                         <div className="header-basket">

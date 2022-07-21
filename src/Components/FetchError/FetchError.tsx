@@ -1,7 +1,6 @@
 import '../NotFound/notFound.scss'
 
-const FetchError = ()=>{
-
+const FetchError: React.FC = ()=>{
 
     return(
         <div className='notFound'>

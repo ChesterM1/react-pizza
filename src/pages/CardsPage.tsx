@@ -1,12 +1,13 @@
 import EmptyCard from "../Components/Cards/EmptyCard/EmptyCard";
 import CompleteCard from "../Components/Cards/CompleteCard/CompleteCard";
 import { useSelector } from "react-redux";
+import {selectCardPizza} from '../redux/slice/cardPizza';
 
 const CardsPage = ()=>{
 
-    const cardItems = useSelector(state => state.cardPizza.pizzaMini);
+    const {pizzaMini} = useSelector(selectCardPizza);
 
-        const render = cardItems.length ? <CompleteCard/> : <EmptyCard/> ;
+        const render = pizzaMini.length ? <CompleteCard/> : <EmptyCard/> ;
     return(
         <>
         {render}

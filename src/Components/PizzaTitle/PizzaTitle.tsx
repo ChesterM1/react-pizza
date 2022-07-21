@@ -1,9 +1,10 @@
-import { useSelector } from 'react-redux';
 import './pizzaTitle.scss';
+import { useSelector } from 'react-redux';
+import {selectFilters} from '../../redux/slice/sortSlice'
 
-const PizzaTitle = ()=>{
+const PizzaTitle: React.FC = ()=>{
 
-    const {categoryId, categoryItem} = useSelector(state => state.filters);
+    const {categoryId, categoryItem} = useSelector(selectFilters);
     
     return(
         <section className="pizza-title">

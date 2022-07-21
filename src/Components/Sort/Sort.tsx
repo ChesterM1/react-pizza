@@ -1,41 +1,54 @@
-import { useState, useRef, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-
 import "./sort.scss";
 import arrow from "../../img/arrow.svg";
-import {setCategory, setSortValue} from '../../redux/slice/sortSlice';
+import { useState, useRef, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {setCategory, setSortValue, selectFilters} from '../../redux/slice/sortSlice';
+import { SortValueType } from "../../redux/slice/pizzaSlice";
 
 
-export const sortList =  [
-    {sortName: 'rating', name: 'популярности'},
-    {sortName: 'price', name: 'цене'},
-    {sortName: 'title', name: 'по алфавиту'}
+
+
+export const sortList : sortListItem[] =  [
+    {sortName: SortValueType.SORT_RATING , name: 'популярности'},
+    {sortName: SortValueType.SORT_PRICE, name: 'цене'},
+    {sortName: SortValueType.SORT_TITLE, name: 'по алфавиту'}
 ];
 
-const Sort = () => {
-    const {categoryId, categoryItem, sortValue} = useSelector(state => state.filters);
+type sortListItem = {
+    sortName : SortValueType;
+    name : string;
+}
+
+type EventMouseType = MouseEvent & {
+    path : Node[];
+}
+
+const Sort: React.FC = () => {
+    const {categoryId, categoryItem, sortValue} = useSelector(selectFilters);
     const dispatch = useDispatch();
     const [openSort, setOpenSort] = useState(false);
-    const sortRef = useRef();
+    const sortRef = useRef<HTMLDivElement>(null);
  
     const viewSort = ()=>{
         setOpenSort(!openSort);
     };
 
-    const getSortValue = (i)=>{
-       dispatch(setSortValue(i));
+    const getSortValue = (value: sortListItem)=>{
+       dispatch(setSortValue(value));
         viewSort();
     };
 
-    const chooseCategories = (i) => {
+    const chooseCategories = (i : number) => {
         dispatch(setCategory(i))
     };
 
     
 
     useEffect(()=>{
-        const closeSort = (e)=>{
-            if(!e.path.includes(sortRef.current)){
+        const closeSort = (e: MouseEvent)=>{
+            const _e = e as EventMouseType;
+
+            if(sortRef.current && !_e.path.includes(sortRef.current)){
                 setOpenSort(false);
             }
         }
@@ -51,7 +64,7 @@ const Sort = () => {
             <div className="sort__wrapper">
                 <div className="sort-pizza">
                     <ul className="sort-pizza__list">
-                        {categoryItem.map((item, i) => {
+                        {categoryItem.map((item : string, i: number) => {
                             return (
                                 <li
                                     className={categoryId === i ? "active" : ""}
@@ -83,7 +96,7 @@ const Sort = () => {
                          >{sortValue.name}</div>
 
                         <ul className={openSort ? 'active' : '' }>
-                            {sortList.map((item, i)=>{
+                            {sortList.map((item : sortListItem, i: number)=>{
                                 return(
                                     <li className={sortValue.name === item.name ? 'active': ''}
                                     onClick={()=> getSortValue(item)}

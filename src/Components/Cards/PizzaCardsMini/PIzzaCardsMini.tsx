@@ -1,13 +1,23 @@
+import "./pizzaCardsMini.scss";
+import { useDispatch } from "react-redux";
 import {
     dltPizzasItem,
     plusPizzaItem,
     minusPizzaItem,
 } from "../../../redux/slice/cardPizza";
-import { useDispatch } from "react-redux";
 
-import "./pizzaCardsMini.scss";
+export type PizzaMiniProp =  {
+    param: string;
+    count: number;
+    imageUrl: string;
+    price: number;
+    sizes: number;
+    types: string;
+    title: string;
 
-const PizzaCardsMini = ({
+}
+
+const PizzaCardsMini: React.FC<PizzaMiniProp>  = ({
     param,
     count,
     imageUrl,

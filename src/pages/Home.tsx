@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import { useNavigate } from "react-router-dom";
 import qs from "qs";
 import FetchError from "../Components/FetchError/FetchError";
@@ -10,16 +10,30 @@ import PizzaTitle from "../Components/PizzaTitle/PizzaTitle";
 import Paginate from "../Components/Paginate/Paginate";
 import { sortList } from "../Components/Sort/Sort";
 import { setFilter } from "../redux/slice/sortSlice";
-import { chengePages } from "../redux/slice/sortSlice";
-import { fetchPizza } from "../redux/slice/pizzaSlice";
+import { chengePages, selectFilters } from "../redux/slice/sortSlice";
+import { fetchPizza, selectPizzas } from "../redux/slice/pizzaSlice";
+import {useAppDispatch} from '../redux/store/store';
 
-const Home = () => {
-    const { categoryId, sortValue, pages, searchValue } = useSelector(
-        (state) => state.filters
-    );
-    const { status, pizzas } = useSelector((state) => state.pizzas);
+
+
+export type pizzasType = {
+    id: string;
+    imageUrl: string;
+    title: string;
+    price: number;
+    category?: number;
+    rating?: number;
+    types : number[];
+    sizes: number[];
+}
+
+
+
+const Home: React.FC = () => {
+    const { categoryId, sortValue, pages, searchValue } = useSelector(selectFilters);
+    const { status, pizzas } = useSelector(selectPizzas);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const firstLoad = useRef(false);
     const isMounted = useRef(false);
 
@@ -38,22 +52,21 @@ const Home = () => {
             })
         );
     };
-
+                                //qs.parse(window.location.search.substring(1))
     useEffect(() => {
         if (window.location.search) {
-            const params = qs.parse(window.location.search.substring(1));
+            const params : any = qs.parse(window.location.search.substring(1)) ;
 
-            const sortValue = sortList.find(
+            const sortValue  = sortList.find(
                 (item) => item.sortName === params.sortValue
-            );
-
-            dispatch(
-                setFilter({
-                    ...params,
-                    sortValue,
-                })
-            );
-
+            ) ;
+            
+                dispatch(
+                    setFilter({
+                        ...params,
+                        sortValue,
+                    })
+                );
             firstLoad.current = true;
         }
     }, []);
@@ -82,7 +95,7 @@ const Home = () => {
     const items =
         status === "loading"
             ? [...new Array(4)].map((_, i) => <Skeleton key={i} />)
-            : pizzas.map((props) => <Pizza {...props} key={props.id} />);
+            : pizzas.map((props : pizzasType) => <Pizza {...props} key={props.id} />);
 
     return (
         <>
@@ -98,7 +111,7 @@ const Home = () => {
                 <FetchError />
             )}
 
-            <Paginate pizzasLength={pizzas.length} />
+            <Paginate/>
         </>
     );
 };

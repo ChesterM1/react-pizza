@@ -5,20 +5,20 @@ import './search.scss';
 
 import {setSearchValue} from '../../redux/slice/sortSlice';
 
-const Search = ()=>{
+const Search: React.FC = ()=>{
 
     const [inputValue, setInputValue] = useState('');
     const dispatch = useDispatch();
-    const inputRef = useRef();
+    const inputRef = useRef<HTMLInputElement>(null);
 
     // eslint-disable-next-line
     const  updateSearch = useCallback(
-      debounce((str)=>{
+      debounce((str: string)=>{
         dispatch(setSearchValue(str))
       }, 500),
     []);
 
-    const updateInputValue = (value)=>{
+    const updateInputValue = (value: string)=>{
       setInputValue(value);
       updateSearch(value);
     }
@@ -27,7 +27,7 @@ const Search = ()=>{
     const clearInput = ()=>{
         setInputValue('');
         dispatch(setSearchValue(''));
-        inputRef.current.focus();
+        inputRef.current?.focus();
     }
 
     return(

@@ -1,41 +1,68 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setPizzaMini } from "../../redux/slice/cardPizza";
-
-
 import "./pizza.scss";
-
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setPizzaMini, CardPizzaType } from "../../redux/slice/cardPizza";
+import {useAppSelector} from '../../redux/store/store';
 
 const doughType = ["тонкое", "традиционное"];
 
-const Pizza = ({ title, price, imageUrl, types, sizes, id }) => {
+export type PizzaProp = {
+    title: string;
+    price: number;
+    imageUrl: string;
+    types: number[];
+    sizes: number[];
+    id: string;
+};
+
+export type PizzaType = {
+    title: string;
+    price: number;
+    imageUrl: string;
+    sizes: number[];
+    types: number[];
+    id: string;
+    param?: string;
+    count?: number;
+};
+
+
+
+const Pizza: React.FC<PizzaProp> = ({
+    title,
+    price,
+    imageUrl,
+    types,
+    sizes,
+    id,
+}) => {
     const [sizesNum, setSizesNum] = useState(0);
     const [activeDough, setActiveDough] = useState(0);
-    
 
     const dispatch = useDispatch();
     const pizzaCount =
-        useSelector((state) => state.cardPizza.pizzaMini.filter(elem => elem.id === id))
-        .reduce((acum, elem)=> acum + elem.count, 0) || null;
-   
-        
+        useAppSelector( state => state.cardPizza.pizzaMini.filter(
+                (elem: CardPizzaType) => elem.id === id
+            )
+        ).reduce((acum: number, elem: CardPizzaType) => acum + elem.count, 0) ||
+        null;
+
     const cardPizza = {
         title,
         price,
         imageUrl,
         sizes: sizes[sizesNum],
         types: types[0] === activeDough ? doughType[0] : doughType[1],
-        id ,
-        param: activeDough ? (id+doughType[0]+sizesNum) : (id+doughType[1]+sizesNum),
+        id,
+        param: activeDough
+            ? id + doughType[0] + sizesNum
+            : id + doughType[1] + sizesNum,
         count: 1,
     };
-    
 
     const buyPizza = () => {
         dispatch(setPizzaMini(cardPizza));
     };
-
-
 
     return (
         <div className="pizza-block">
@@ -49,13 +76,11 @@ const Pizza = ({ title, price, imageUrl, types, sizes, id }) => {
                                 onClick={() => setActiveDough(i)}
                                 className={activeDough === i ? "active" : ""}
                                 key={i}
-                                
                             >
                                 {doughType[dough]}
                             </div>
                         );
                     })}
-                    
                 </div>
                 <div className="pizza-block__diameter">
                     {sizes.map((item, i) => {
